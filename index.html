@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Regular Expressions</h1>
+					<p>Author: Andrey Perovskiy</p>
+				</section>
+				<section>
+					<p>Regular expressions are very useful functionality that can be used in many aspects of programming.</p>
+				</section>
+				<section>
+					<h2>Example</h2>
+					<li class="fragment">Let's take e-mail address</li>
+					<li class="fragment">UserName@mailService.com</li>
+					<li class="fragment">and try create validation regular expression for it</li>
+				</section>
+				
+				<section>
+					<h2>Let's start</h2>					
+					<ul>
+						<li class="fragment">separate e-mail on blocks</li>
+						<li class="fragment">first: "UserName"</li>
+						<li class="fragment">second: "@"</li>
+						<li class="fragment">third: "mailService"</li>
+						<li class="fragment">fourth: "."</li>
+						<li class="fragment">fifth: "com"</li>
+					  </ul>
+				</section>
+				<section>
+					<h2>First block </h2>					
+					<ul>
+						<li class="fragment">Use "^" for show start of line </li>
+						<li class="fragment">"\w" any letters "+" one time or more </li>
+						<li class="fragment">but in address can include more than one word</li>
+						<li class="fragment">add "." dot and "-" dash</li>
+						<li class="fragment">use "()" for set conditions and "*" for set count zero or more </li>
+						<li class="fragment">also use  "[]" for set possible symbols and "?" for set count 0 or 1 time</li>
+						<li class="fragment">unite it "([.-]?\w+)*" - (to first word we add dot or dash 0 or 1 time, add another word) * 0+ times</li>
+						<li class="fragment">Result: /^\w+([.-]?\w+)*/</li>
+
+					</ul>
+				</section>
+				<section>
+					<h2>Second block</h2>					
+					<ul>
+						<li class="fragment">add strict "@" without any adds</li>
+						<li class="fragment">Result: /^\w+([.-]?\w+)*@/</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Third block</h2>					
+					<ul>
+						<li class="fragment">Repeat first block</li>
+						<li class="fragment">Result: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*/</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Fourth block</h2>					
+					<ul>
+						<li class="fragment">add strict dot ".", since the dot is a system symbol, it cannot simply be specified, there are several ways to escape "\." or specify the second option in the selection most clearly "[.]"</li>
+						<li class="fragment">Result: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*[.]/</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Fifth block</h2>					
+					<ul>
+						<li class="fragment">add last 2 or 3 letter of domain</li>
+						<li class="fragment">use "\w" and "{}" for set count its letters </li>
+						<li class="fragment">in final use "$" for show end of line</li>
+						<li class="fragment">Result: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*[.](\w{2,3})$/</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Now we can use this regular expression for validate Email address</h2>
+					<ul>
+						<li class="fragment">const regExp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*[.](\w{2,3})$/</li>
+						<li class="fragment">const email = 'example@examp.com'</li>
+						<li class="fragment">const result = regExp.test(email)</li>
+						<li class="fragment">console.log(result)</li>
+						<li class="fragment">True</li>
+					  </ul>
+				</section>
+				<section>
+					<h1>Thank for attention!</h1>
+					<h3>Another regular expressions you can get in internet</h3>					
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
